@@ -1,0 +1,75 @@
+:root {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --panel: #161b22;
+  --line: #262c36;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #4c8dff;
+  --danger: #f85149;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+header h1 { font-size: 18px; margin: 0; letter-spacing: 0.5px; }
+.status { color: var(--muted); font-size: 13px; }
+.controls { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+
+main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+  gap: 16px;
+  padding: 16px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.panel h2 { font-size: 13px; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+
+.messages { min-height: 45vh; max-height: 60vh; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+
+.msg { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); }
+.msg.human { background: #1c2333; align-self: flex-end; max-width: 75%; }
+.msg.agent { background: #12181f; }
+.msg .meta { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+.msg ul { margin: 6px 0 0; padding-left: 18px; }
+
+form { display: flex; gap: 8px; margin-top: 12px; }
+input, select { background: #0d1117; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; }
+input { flex: 1; }
+button { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 9px 14px; cursor: pointer; }
+button.secondary { background: #30363d; }
+button.danger, .danger { background: var(--danger); }
+
+.list { display: flex; flex-direction: column; gap: 8px; max-height: 32vh; overflow-y: auto; font-size: 13px; }
+.item { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.item .muted { color: var(--muted); font-size: 12px; }
+.item .row { display: flex; gap: 6px; margin-top: 8px; }
+.badge { font-size: 11px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.badge.risk-3 { color: var(--danger); border-color: var(--danger); }
+.empty { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 900px) { main { grid-template-columns: 1fr; } }
