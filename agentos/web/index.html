@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AgentOS</title>
+<link rel="stylesheet" href="/static/app.css" />
+</head>
+<body>
+<header>
+  <h1>AgentOS</h1>
+  <div id="status" class="status">loading…</div>
+  <div class="controls">
+    <label for="level">Permission</label>
+    <select id="level">
+      <option value="1">1 · Read only</option>
+      <option value="2">2 · Suggestion</option>
+      <option value="3">3 · Safe automation</option>
+      <option value="4">4 · Critical operations</option>
+    </select>
+    <button id="emergency" class="danger">Emergency stop</button>
+  </div>
+</header>
+
+<main>
+  <section class="panel chat">
+    <h2>Conversation</h2>
+    <div id="messages" class="messages"></div>
+    <form id="chat-form">
+      <input id="instruction" autocomplete="off" placeholder="Publish tomorrow's article…" />
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <aside class="side">
+    <section class="panel">
+      <h2>Pending approvals</h2>
+      <div id="approvals" class="list"></div>
+    </section>
+    <section class="panel">
+      <h2>Snapshots</h2>
+      <div id="snapshots" class="list"></div>
+    </section>
+    <section class="panel">
+      <h2>Audit log</h2>
+      <div id="audit" class="list"></div>
+    </section>
+  </aside>
+</main>
+<script src="/static/app.js"></script>
+</body>
+</html>
