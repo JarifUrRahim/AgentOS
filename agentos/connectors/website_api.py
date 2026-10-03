@@ -11,15 +11,15 @@ Security:
   - Scope: blog_write only (create/update posts)
   - No access to admin, users, appointments, or any other resource
 """
+
 from __future__ import annotations
 
-import os
 import json
-import urllib.request
+import os
 import urllib.error
+import urllib.request
 from dataclasses import dataclass
 from typing import Any
-
 
 WEBSITE_API_URL = os.environ.get("WEBSITE_API_URL", "https://jarifurrahim.one")
 WEBSITE_API_TOKEN = os.environ.get("WEBSITE_API_TOKEN", "")
@@ -65,7 +65,7 @@ def list_posts() -> list[dict[str, Any]]:
         with urllib.request.urlopen(req, timeout=10) as resp:
             data = json.loads(resp.read())
             return data.get("posts", [])
-    except Exception as e:
+    except Exception:
         return []
 
 
@@ -78,6 +78,7 @@ def publish_post(
     read_time: int = 5,
     cover_image: str | None = None,
     published: bool = True,
+    dry_run: bool = False,
 ) -> PublishResult:
     """
     Publish a new blog post to jarifurrahim.one.
@@ -95,11 +96,15 @@ def publish_post(
     Returns:
         PublishResult with success status and post URL
     """
-    if not WEBSITE_API_TOKEN:
+    if dry_run:
         return PublishResult(
             success=False,
-            message="WEBSITE_API_TOKEN not set in environment",
-            error="Missing token"
+            message="Dry run only; no website request sent.",
+        )
+
+    if not WEBSITE_API_TOKEN:
+        return PublishResult(
+            success=False, message="WEBSITE_API_TOKEN not set in environment", error="Missing token"
         )
 
     payload = {
@@ -144,9 +149,7 @@ def update_post(slug: str, **fields: Any) -> PublishResult:
     """Update an existing blog post by slug."""
     if not WEBSITE_API_TOKEN:
         return PublishResult(
-            success=False,
-            message="WEBSITE_API_TOKEN not set in environment",
-            error="Missing token"
+            success=False, message="WEBSITE_API_TOKEN not set in environment", error="Missing token"
         )
 
     try:
