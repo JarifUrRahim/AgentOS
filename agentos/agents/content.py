@@ -6,9 +6,9 @@ from typing import Any
 
 from agentos.agents.base import Agent, register_agent
 from agentos.agents.workspace import listdir, read, resolve, slugify, today, write
+from agentos.connectors import website_api
 from agentos.core.actions import ActionResult, ExecutionContext, registry
 from agentos.core.permissions import RiskLevel
-from agentos.connectors import website_api
 
 AGENT = register_agent(
     Agent(
@@ -105,7 +105,8 @@ def generate_newsletter(ctx: ExecutionContext, params: dict[str, Any]) -> Action
     "content.publish_to_website",
     agent=AGENT.name,
     description="Publish a draft article directly to jarifurrahim.one via the Agent API.",
-    risk=RiskLevel.LOW,
+    risk=RiskLevel.CRITICAL,
+    reversible=False,
     required_params=("title", "slug", "excerpt", "content"),
 )
 def publish_to_website(ctx: ExecutionContext, params: dict[str, Any]) -> ActionResult:
@@ -129,7 +130,14 @@ def publish_to_website(ctx: ExecutionContext, params: dict[str, Any]) -> ActionR
         category=category,
         read_time=read_time,
         cover_image=cover_image,
+        dry_run=ctx.dry_run,
     )
+
+    if ctx.dry_run:
+        return ActionResult(
+            f"Dry run only: no website request was sent for '{title}'.",
+            data={"would_publish": True, "slug": slug},
+        )
 
     if result.success:
         return ActionResult(
