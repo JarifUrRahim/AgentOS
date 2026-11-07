@@ -97,7 +97,7 @@ Local verification on Python 3.11: **46 tests passed**, Ruff lint passed, Ruff f
 
 These links are provided for author and organization identification, not as endorsements:
 
-- Author: [Rashik — Beyond The Title](https://jarifurrahim.one/)
+- Project maintainer and prototype architect: [G. K. M. Jarif Ur Rahim](https://github.com/JarifUrRahim) — **Cognitive System Architect**; [portfolio](https://jarifurrahim.one/).
 - [LinkedIn profile](https://www.linkedin.com/in/jarifurrahim)
 - [Google Knowledge Panel search URL (provided by the author)](https://www.google.com/search?kgmid=/g/11z1lszj5x)
 - Organization: [Rashik — The Awakening](https://rashik.org/) (official domain supplied by the author)
